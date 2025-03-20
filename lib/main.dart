@@ -1,41 +1,108 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
-      theme: ThemeData(
-        // useMaterial3: false,
-        primarySwatch: Colors.blue,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Jan Sosa'),
+        ),
+        body: Center(
+          child: BallCard(
+            nombre: 'Balón de Fútbol Profesional',
+            perimetro: '68-70 cm',
+            marca: 'Adidas',
+            calidad: 'Alta',
+            precio: '\$49.99',
+            color: Colors.blue[100]!,
+          ),
+        ),
       ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});  
+class BallCard extends StatelessWidget {
+  final String nombre;
+  final String perimetro;
+  final String marca;
+  final String calidad;
+  final String precio;
+  final Color color;
+
+  BallCard({
+    required this.nombre,
+    required this.perimetro,
+    required this.marca,
+    required this.calidad,
+    required this.precio,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
+    return Container(
+      // Eliminado el margen fijo
+      constraints: BoxConstraints(
+        // Agregado constraints para controlar el tamaño
+        maxWidth: 300.0, // Ancho máximo del recuadro
+        maxHeight: 200.0, // Alto máximo del recuadro
       ),
-      body: Center(
-        child: Text(
-          'Hello, World!',
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(color: Colors.grey[400]!),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize:
+              MainAxisSize.min, // Ajustar el tamaño de la columna al contenido
+          children: [
+            Text(
+              nombre,
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8.0),
+            Row(
+              children: [
+                Text('Perímetro: '),
+                Text(perimetro),
+              ],
+            ),
+            Row(
+              children: [
+                Text('Marca: '),
+                Text(marca),
+              ],
+            ),
+            Row(
+              children: [
+                Text('Calidad: '),
+                Text(calidad),
+              ],
+            ),
+            Row(
+              children: [
+                Text('Precio: '),
+                Text(precio),
+              ],
+            ),
+          ],
         ),
       ),
     );
